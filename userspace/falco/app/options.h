@@ -41,6 +41,8 @@ public:
 	options& operator=(const options&) = default;
 
 	// Each of these maps directly to a command line option.
+	bool disable_entry_events = false;  ///< Disable entry events.
+	bool disable_tocttou = false;  ///< Disable TOCTTOU support.
 	bool help = false;
 	bool print_config_schema = false;
 	bool print_rule_schema = false;
