@@ -110,12 +110,12 @@ falco::app::run_result falco::app::actions::open_live_inspector(falco::app::stat
 			if(s.options.disable_entry_events && !s.options.disable_tocttou) {
 				return run_result::fatal("Disabling entry events is required for disabling TOCTTOU support.");
 			}
-			inspector->open_modern_bpf_direct(s.syscall_buffer_bytes_size,
-			                                  s.config->m_modern_ebpf.m_cpus_for_each_buffer,
-			                                  true,
-			                                  s.options.disable_entry_events,
-			                                  s.options.disable_tocttou,
-			                                  s.selected_sc_set);
+			inspector->_open_modern_bpf(s.syscall_buffer_bytes_size,
+			                            s.config->m_modern_ebpf.m_cpus_for_each_buffer,
+			                            true,
+			                            s.options.disable_entry_events,
+			                            s.options.disable_tocttou,
+			                            s.selected_sc_set);
 		} else if(s.is_ebpf()) /* BPF engine. */
 		{
 			falco_logger::log(falco_logger::level::INFO,
