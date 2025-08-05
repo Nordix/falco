@@ -106,8 +106,18 @@ falco::app::run_result falco::app::actions::open_live_inspector(falco::app::stat
 			        "One ring buffer every '" +
 			                std::to_string(s.config->m_modern_ebpf.m_cpus_for_each_buffer) +
 			                "' CPUs.");
+			if (s.options.disable_entry_events) {
+				falco_logger::log(falco_logger::level::INFO, "ENTER EVENTS DISABLED");
+			} else {
+				falco_logger::log(falco_logger::level::INFO, "ENTER EVENTS ENABLED");
+			}
+			if (s.options.disable_tocttou) {
+				falco_logger::log(falco_logger::level::INFO, "TOCTTOU SUPPORT DISABLED");
+			} else {
+				falco_logger::log(falco_logger::level::INFO, "TOCTTOU SUPPORT ENABLED");
+			}
 			// Validate configuration for enter events.
-			if(s.options.disable_entry_events && !s.options.disable_tocttou) {
+			if(!s.options.disable_entry_events && s.options.disable_tocttou) {
 				return run_result::fatal("Disabling entry events is required for disabling TOCTTOU support.");
 			}
 			inspector->_open_modern_bpf(s.syscall_buffer_bytes_size,
